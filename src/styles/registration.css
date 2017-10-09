@@ -1,0 +1,24 @@
+.register-form {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    position: absolute;
+    left: 40%;
+    top: 30%;
+
+}
+
+.register-page {
+    background-color: #3CC8BC;
+    position: absolute;
+    width: 100%;
+    height: 92.9%;
+}
+
+.register-form-header {
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-family: "Arial Rounded MT Bold";
+    font-size: larger;
+
+}
