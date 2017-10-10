@@ -4,6 +4,7 @@ import '../styles/spinner.css';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import Snackbar from 'material-ui/Snackbar';
 
 const RegisterForm = (props) => {
   return(
@@ -12,6 +13,12 @@ const RegisterForm = (props) => {
           <div className="register-form-header">
             Sign Up<br/>
           </div>
+          {props.error ? <Snackbar
+            open={props.error}
+            message={props.error.response.data.message}
+            bodyStyle={{background: 'red', opacity: '0.5'}}
+            autoHideDuration={4000}
+          /> : null}
           <TextField style={{marginBottom: '20px'}}
                      hintText="username"
                      onChange={
@@ -26,6 +33,22 @@ const RegisterForm = (props) => {
                      onChange={
                        (e) => {
                          props.editPassword(e.target.value)
+                       }
+                     }
+          /><br/>
+          <TextField style={{marginBottom: '20px'}}
+                     hintText="first name"
+                     onChange={
+                       (e) => {
+                         props.editFirstName(e.target.value)
+                       }
+                     }
+          /><br/>
+          <TextField style={{marginBottom: '20px'}}
+                     hintText="second name"
+                     onChange={
+                       (e) => {
+                         props.editSecondName(e.target.value)
                        }
                      }
           /><br/>
@@ -44,10 +67,10 @@ const RegisterForm = (props) => {
                 buttonStyle={{backgroundColor: '#2BB8BC'}}
                 onClick={
                   () => {
-                    props.createAccount(props.username, props.password)
+                    props.createAccount(props.username, props.password, props.firstName, props.secondName)
                       .then(() => {
                         console.log('bleat');
-                        props.history.replace('/')
+                        props.history.replace('/sign-in')
                       })
 
                   }

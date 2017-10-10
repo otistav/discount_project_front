@@ -13,13 +13,15 @@ export default function loginForm(
     case constants.LOGIN_USERNAME_EDITED: {
       return {
         ...state,
-        currentUsername: action.payload
+        currentUsername: action.payload,
+        error: null
       }
     }
     case constants.LOGIN_PASSWORD_EDITED: {
       return {
         ...state,
-        currentPassword: action.payload
+        currentPassword: action.payload,
+        error: null
       }
     }
     case constants.LOGIN_SUCCESS: {

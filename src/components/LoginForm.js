@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
-// let localStorage = require('react-localstorage');
+
 
 const LoginForm = (props) => {
   return(
