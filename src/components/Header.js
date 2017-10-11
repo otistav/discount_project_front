@@ -19,8 +19,6 @@ import {
 
 class Header extends Component {
   render() {
-    const {match, location, history} = this.props;
-    console.log('HISTORY', this.props.history);
     return(
       <AppBar
         className="header"

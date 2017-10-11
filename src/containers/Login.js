@@ -11,13 +11,12 @@ import {
 
 class Login extends Component {
   componentDidMount() {
-    if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token')) this.props.history.replace('/')
+    if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token'))
+      this.props.history.replace('/')
   }
 
 
   render() {
-    console.log(this.props.error);
-    const {match, location, history} = this.props;
     return(
       <div className="register-page">
 

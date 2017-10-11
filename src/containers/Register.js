@@ -13,14 +13,13 @@ import {
 
 class Register extends Component {
   componentDidMount() {
-    if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token')) this.props.history.replace('/')
+    if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token'))
+      this.props.history.replace('/')
   }
 
 
   render() {
 
-    const {match, location, history} = this.props;
-    console.log('HISTORY', this.props.history);
     return(
       <div className="register-page">
 

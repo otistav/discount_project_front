@@ -1,0 +1,30 @@
+.basic-auth-diagram {
+    position: absolute;
+    right: 0;
+    top: 5%;
+
+}
+
+.diagram-header {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: large;
+    font-weight: bold;
+    text-align: center;
+    display: inline-flex;
+}
+
+.social-auth-diagram {
+    position: absolute;
+    right: 20%;
+    top: 5%;
+}
+
+.token-diagram {
+    position: absolute;
+    right: 40%;
+    top: 5%;
+}
+
+.column-value {
+    margin-left: 5%;
+}
