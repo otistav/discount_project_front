@@ -19,6 +19,7 @@ import {
 
 class Header extends Component {
   render() {
+    console.log(localStorage.getItem('access_token'), 'token at header')
     return(
       <AppBar
         className="header"
@@ -33,7 +34,8 @@ class Header extends Component {
                   <ActionHome />
                 </IconButton>
                 <FlatButton label= "logout"
-                            labelStyle={{color: 'white'}}
+                            className="header-button"
+                            labelStyle={{color: 'black'}}
                             onClick={
                               () => {
                                 localStorage.removeItem('refresh_token');
@@ -42,8 +44,6 @@ class Header extends Component {
                               }
                             }
                             style={{
-                              borderRadius: '20%',
-                              border: '2px white solid',
                               marginRight: '10px',
                               bottom: '5px'
                             }}
@@ -52,32 +52,30 @@ class Header extends Component {
               :
               <div>
                 <FlatButton label="sign in"
+                            className="header-button"
                             containerElement={<Link to="/sign-in"/>}
-                            labelStyle={{color: 'white'}}
+                            labelStyle={{color: 'black'}}
                             style={{
-                              borderRadius: '20%',
-                              border: '2px white solid',
                               marginRight: '10px'
                             }}
                 />
 
                 <FlatButton label="sign up"
+                            className="header-button"
                             containerElement={<Link to="/sign-up"/>}
-                            labelStyle={{color: 'white'}}
+                            labelStyle={{color: 'black'}}
                             style={{
-                              borderRadius: '20%',
-                              border: '2px solid white',
                               marginRight: '10px'
                             }}
                 />
 
-                <FlatButton label={<Icon size="2x" style={{color: 'white'}} name="vk" />}
-                            onClick={this.props.signInVK}
-                            style={{
-                              border: '2px solid white',
-                              borderRadius: '20%',
-                              bottom: '10px'
-                            }}
+                <FlatButton
+                  label={<Icon size="2x" style={{color: 'black'}} name="vk" />}
+                  onClick={this.props.signInVK}
+                  className="header-button"
+                  style={{
+                    bottom: '10px'
+                  }}
                 />
               </div>
 
@@ -85,8 +83,8 @@ class Header extends Component {
           </div>
         }
 
-        titleStyle={{color: 'white'}}
-        style={{background: '#7FC7FF'}}
+        // titleStyle={{color: 'white'}}
+        // style={{background: '#7FC7FF'}}
       />
     )
   }

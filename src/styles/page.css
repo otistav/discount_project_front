@@ -1,0 +1,20 @@
+
+
+
+.column-value {
+    margin-left: 5%;
+}
+
+.statistic-header {
+    text-align: center;
+}
+
+.page {
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*align-items: baseline;*/
+    position: relative;
+    height: 815px;
+    min-height: 815px;
+    overflow: auto;
+}

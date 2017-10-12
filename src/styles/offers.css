@@ -1,0 +1,19 @@
+.offer {
+    border: 2px solid red;
+    position: relative;
+}
+
+.offers {
+    display: inline-flex;
+}
+
+.edit-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.offer-description {
+    float: right;
+    max-width: 150px;
+}

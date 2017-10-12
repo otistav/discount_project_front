@@ -1,9 +1,9 @@
-.basic-auth-diagram {
-    position: absolute;
-    right: 0;
-    top: 5%;
-
+.diagram {
+    border: 2px #7ad6ff solid;
+    border-radius: 5%;
+    margin-right: 2%;
 }
+
 
 .diagram-header {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -13,18 +13,14 @@
     display: inline-flex;
 }
 
-.social-auth-diagram {
-    position: absolute;
-    right: 20%;
-    top: 5%;
+.diagrams {
+    /*float: right;*/
+    display: flex;
+
+    margin-top: 1%;
 }
 
-.token-diagram {
-    position: absolute;
-    right: 40%;
-    top: 5%;
-}
-
-.column-value {
-    margin-left: 5%;
+.statistic {
+    margin-right: 3%;
+    float: right;
 }

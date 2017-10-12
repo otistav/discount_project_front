@@ -8,7 +8,7 @@ import {HorizontalBarSeries,XYPlot,XAxis, YAxis, LineSeries, VerticalBarSeries} 
 
 const Diagram = (props) => {
   return(
-    <div>
+    <Paper className="diagram">
       <div className="diagram-header">
         {props.header}
         <div className="column-value">
@@ -16,7 +16,7 @@ const Diagram = (props) => {
         </div>
       </div>
 
-      <XYPlot height={300} width={300} xType={'ordinal'} animation={true}>
+      <XYPlot height={200} width={300} xType={'ordinal'} animation={true}>
         <VerticalBarSeries
           data={props.statistic}
           onValueMouseOver={(d) => { console.log(d.y);props.setCurrentStatisticValue(d.y, props.id);}}
@@ -25,7 +25,7 @@ const Diagram = (props) => {
         <XAxis />
         <YAxis />
       </XYPlot>
-    </div>
+    </Paper>
   )
 };
 

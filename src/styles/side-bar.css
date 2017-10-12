@@ -1,0 +1,8 @@
+.side-bar {
+    display: inline-block;
+    float: left;
+    width: 10%;
+    height: 815px;
+    background-color: RGB(54, 150, 167) !important;
+
+}

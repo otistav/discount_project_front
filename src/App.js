@@ -9,7 +9,12 @@ import axios from 'axios';
 import {signInWithVK} from './actions/vkLogIn';
 import Login from './containers/Login';
 import HomePage from './containers/HomePage';
+import SideBar from './containers/SideBar';
+import Offers from './containers/Offers';
 import FlatButton from 'material-ui/FlatButton';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { withRouter } from 'react-router'
 import {
   BrowserRouter as Router,
   Route,
@@ -24,18 +29,22 @@ injectTapEventPlugin();
 
 class App extends Component {
 
+
   render() {
+    console.log(this.props.location);
     return (
       <Router>
-        <MuiThemeProvider>
-          <div>
-
+        <MuiThemeProvider  muiTheme={getMuiTheme(darkBaseTheme)}>
+          <div className='app'>
             <Header signInVK={this.props.vkLogin}
                     history={this.props.history}
             />
+            <SideBar/>
+            <Route path="/offers" component={Offers}/>
+            <Route path="/" exact component={HomePage}/>
             <Route path="/sign-up" component={Register} />
             <Route path="/sign-in" component={Login} />
-            <Route path="/" exact component={HomePage} />
+
           </div>
         </MuiThemeProvider>
       </Router>
@@ -45,7 +54,7 @@ class App extends Component {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   state => ({
 
   }),
@@ -54,4 +63,4 @@ export default connect(
       return dispatch(signInWithVK())
     }
   })
-)(App)
+)(App))

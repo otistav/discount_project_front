@@ -4,18 +4,18 @@ import {getUser} from "../actions/users";
 import Paper from 'material-ui/Paper';
 import {getStatistic, setCurrentStatisticValue} from "../actions/statistic";
 import MetricsGraphics from 'react-metrics-graphics';
-import '../styles/home-page.css';
+import '../styles/page.css';
 import _ from 'lodash/collection';
 import '../../node_modules/react-vis/dist/style.css';
 import '../styles/diagram.css';
 import Diagram from '../components/Diagram';
+import SideBar from '../containers/SideBar';
 
 
 
 class HomePage extends Component {
   shouldComponentUpdate(nextProps) {
-    if (this.props.currentValue.id === nextProps.currentValue.id && this.props.statistic) return false;
-    return true
+    return (this.props.currentValue.id !== nextProps.currentValue.id && this.props.statistic);
   }
   componentDidMount() {
     if (!(localStorage.getItem('access_token') && localStorage.getItem('refresh_token')))
@@ -27,7 +27,7 @@ class HomePage extends Component {
 
   render() {
 
-    let basic_auth_statistic = _.map(this.props.statistic, (obj,iter) => {
+    let basic_auth_statistic = _.map(this.props.statistic, (obj) => {
       return {y: Number(obj.auth_count), x: obj.date}
     });
 
@@ -35,46 +35,49 @@ class HomePage extends Component {
       return {x: obj.date, y: Number(obj.social_count)}
     });
     let refresh_token_statistic = _.map(this.props.statistic, (obj) => {
-      console.log(obj.social_count);
       return {x: obj.date, y: Number(obj.token_count)}
     });
 
 
 
     return(
-      <div className="home-page">
-        <div className="basic-auth-diagram">
-          <Diagram
-            header="Basic Auth Diagram"
-            currentValue={this.props.currentValue}
-            id={1}
-            statistic={basic_auth_statistic}
-            setCurrentStatisticValue={this.props.setCurrentStatisticValue}
-          />
+        <div>
+          <Paper className="page">
+            <div className="statistic">
+              <div className="statistic-header">
+                SomeStatistic
+              </div>
+              <div className="diagrams">
+
+                <Diagram
+                  header="Basic Auth Diagram"
+                  currentValue={this.props.currentValue}
+                  id={1}
+                  statistic={basic_auth_statistic}
+                  setCurrentStatisticValue={this.props.setCurrentStatisticValue}
+                />
+                <Diagram
+                  header="Social Auth Statistic"
+                  currentValue={this.props.currentValue}
+                  id={2}
+                  statistic={social_auth_statistic}
+                  setCurrentStatisticValue={this.props.setCurrentStatisticValue}
+                />
+                <Diagram
+                  header="Refresh Token Statistic"
+                  currentValue={this.props.currentValue}
+                  id={3}
+                  statistic={refresh_token_statistic}
+                  setCurrentStatisticValue={this.props.setCurrentStatisticValue}
+                />
+              </div>
+            </div>
+
+          </Paper>
         </div>
 
-        <div className="social-auth-diagram">
-          <Diagram
-            header="Social Auth Statistic"
-            currentValue={this.props.currentValue}
-            id={2}
-            statistic={social_auth_statistic}
-            setCurrentStatisticValue={this.props.setCurrentStatisticValue}
-          />
-        </div>
-
-        <div className="token-diagram">
-          <Diagram
-            header="Refresh Token Statistic"
-            currentValue={this.props.currentValue}
-            id={3}
-            statistic={refresh_token_statistic}
-            setCurrentStatisticValue={this.props.setCurrentStatisticValue}
-          />
-        </div>
 
 
-      </div>
     )
 
   }
