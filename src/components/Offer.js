@@ -6,19 +6,33 @@ const Offer = (props) => {
   return(
     <div className="offer">
       <div className="offer-name">
-        {props.name}
+        {props.offer.name}
       </div>
-      <Img src={"http://localhost:3000/" + props.image} style={{width: '100px', height: '100px'}}/>
+      <Img src={"http://localhost:3000/" + props.offer.image} style={{width: '100px', height: '100px'}}/>
 
       <div className="offer-description">
-        {props.description}
+        {props.offer.description}
       </div>
+
+      <div className="offer-info">
+        {props.offer.disposable === true ? <div>disposable</div> : <div>reusable</div>}
+      </div>
+      {props.offer.percentage_discount
+        ?
+        <div className="offer-info">Discount: {props.offer.percentage_discount} %</div>
+        :
+        <div className="offer-info">Discount: {props.offer.currency_discount} usd</div>
+      }
+      <div className="offer-info">Cost: {props.offer.cost} usd</div>
+
+
       <div className="edit-button">
-        <FlatButton label="EDIT"/>
+        <FlatButton
+          label="EDIT"
+          onClick={() => {props.changeModalStatus(); props.setOffer(props.offer)}}
+        />
       </div>
-      <div>
-        {props.disposable === true ? <div>disposable</div> : <div>reusable</div>}
-      </div>
+
     </div>
   )
 

@@ -6,6 +6,7 @@ export function getStatistic() {
   return (dispatch) => {
     return axios.get('http://localhost:3001/statistic')
       .then(statistic => {
+        console.log(statistic, "STATISTIC");
         dispatch(saveStatistic(statistic.data));
       })
       .catch(e => {

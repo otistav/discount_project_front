@@ -15,13 +15,14 @@ import SideBar from '../containers/SideBar';
 
 class HomePage extends Component {
   shouldComponentUpdate(nextProps) {
-    return (this.props.currentValue.id !== nextProps.currentValue.id && this.props.statistic);
+    if (!this.props.statistic) return true;
+    return (this.props.currentValue.value !== nextProps.currentValue.value)
   }
+
   componentDidMount() {
+    this.props.getStatistic();
     if (!(localStorage.getItem('access_token') && localStorage.getItem('refresh_token')))
       this.props.history.replace('/sign-in');
-    this.props.getStatistic();
-
   }
 
 
@@ -37,8 +38,6 @@ class HomePage extends Component {
     let refresh_token_statistic = _.map(this.props.statistic, (obj) => {
       return {x: obj.date, y: Number(obj.token_count)}
     });
-
-
 
     return(
         <div>

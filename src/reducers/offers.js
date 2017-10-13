@@ -3,7 +3,10 @@ import * as constants from '../constants/actions';
 
 export default function offers(
   state = {
-    isFetching: false
+    isFetching: false,
+    items: [],
+    isModalOpen: false,
+    currentOffer: {}
   }, action) {
 
   switch (action.type) {
@@ -25,6 +28,19 @@ export default function offers(
         ...state,
         error: action.payload,
         isFetching: false
+      }
+    }
+
+    case constants.CHANGE_MODAL_STATUS: {
+      return {
+        ...state,
+        isModalOpen: !state.isModalOpen
+      }
+    }
+    case constants.SET_CURRENT_OFFER: {
+      return {
+        ...state,
+        currentOffer: action.payload
       }
     }
     default: return state;

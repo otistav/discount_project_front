@@ -1,5 +1,5 @@
 .offer {
-    border: 2px solid red;
+    border: 1px inset #73899c;
     position: relative;
 }
 
@@ -16,4 +16,20 @@
 .offer-description {
     float: right;
     max-width: 150px;
+}
+
+.offer-info {
+    margin-bottom: 4px;
+}
+
+.modal-dialog {
+    width: 400px;
+}
+
+.dialog-textarea {
+
+}
+
+.file-input {
+    color: white !important;
 }
