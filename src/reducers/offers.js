@@ -30,6 +30,12 @@ export default function offers(
         isFetching: false
       }
     }
+    case constants.CHANGE_CREATE_MODAL_STATUS: {
+      return {
+        ...state,
+        isCreateModalOpen: !state.isCreateModalOpen
+      }
+    }
 
     case constants.CHANGE_MODAL_STATUS: {
       return {

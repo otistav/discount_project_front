@@ -4,6 +4,9 @@ import * as constants from '../constants/actions';
 export default function offerForm(
   state = {
     geolocation: '',
+    visited: false,
+    name: '',
+
   }, action) {
 
   switch (action.type) {
@@ -28,13 +31,17 @@ export default function offerForm(
     case constants.MODAL_OFFER_PERCENTAGE_DISCOUNT_EDITED: {
       return {
         ...state,
-        percentage_discount: action.payload
+        percentage_discount: action.payload,
+        currency_discount: null,
+        currency_discount_limit: null
       }
     }
     case constants.MODAL_OFFER_CURRENCY_DISCOUNT_EDITED: {
       return {
         ...state,
-        currency_discount: action.payload
+        currency_discount: action.payload,
+        percentage_discount: null,
+        percentage_discount_limit: null
       }
     }
     case constants.MODAL_OFFER_USE_BONUS_EDITED: {
@@ -52,19 +59,43 @@ export default function offerForm(
     case constants.MODAL_OFFER_PERCENTAGE_DISCOUNT_LIMIT_EDITED: {
       return {
         ...state,
-        percentage_discount_limit: action.payload
+        percentage_discount_limit: action.payload,
+        currency_discount: null,
+        currency_discount_limit: null
       }
     }
     case constants.MODAL_OFFER_CURRENCY_DISCOUNT_LIMIT_EDITED: {
       return {
         ...state,
-        currency_discount_limit: action.payload
+        currency_discount_limit: action.payload,
+        percentage_discount: null,
+        percentage_discount_limit: null
       }
     }
     case constants.MODAL_OFFER_GEOLOCATION_EDITED: {
       return {
         ...state,
         geolocation: action.payload
+      }
+    }
+    case constants.SET_CURRENT_OFFER: {
+      return {
+        ...state,
+        ...action.payload,
+        visited: true
+      }
+    }
+    case "DISCOUNT_TYPE_CHANGED": {
+      return {
+        ...state,
+        discount_type: action.payload
+      }
+    }
+    case constants.FILE: {
+      console.log(action);
+      return {
+        ...state,
+        file: action.payload
       }
     }
     default: return state;

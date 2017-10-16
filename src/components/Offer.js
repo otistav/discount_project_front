@@ -29,7 +29,12 @@ const Offer = (props) => {
       <div className="edit-button">
         <FlatButton
           label="EDIT"
-          onClick={() => {props.changeModalStatus(); props.setOffer(props.offer)}}
+          onClick={
+            () => {
+              props.changeModalStatus();
+              props.setOffer(props.offer)
+            }
+          }
         />
       </div>
 

@@ -13,6 +13,14 @@
     right: 0;
 }
 
+.file-picker-button input{
+    opacity: 0;
+    z-index: 90;
+    width: 90px;
+    height: 36px;
+    position: absolute;
+}
+
 .offer-description {
     float: right;
     max-width: 150px;

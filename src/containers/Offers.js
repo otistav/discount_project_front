@@ -4,32 +4,17 @@ import { connect } from 'react-redux';
 import '../styles/page.css';
 import '../styles/offers.css';
 import Paper from 'material-ui/Paper';
-import Divider from 'material-ui/Divider';
-import Menu from 'material-ui/Menu';
-import FlatButton from 'material-ui/FlatButton';
-import FileInput from '@ranyefet/react-file-input';
+import Subheader from '../components/DictSubheader'
 import {
   getOffers,
   changeModalStatus,
   setCurrentOffer,
-  editModalCurrencyDiscount,
-  editModalCurrencyDiscountLimit,
-  editModalDescription,
-  editModalDisposableStatus,
-  editModalName,
-  editModalPercentageDiscount,
-  editModalPercentageDiscountLimit,
-  editModalUseBonusStatus,
-  editModalCost,
-  editGeolocation,
-  editOffer
+  editOffer,
+  saveFile,
+  changeCreateModalStatus,
+  createOffer
 } from "../actions/offers";
-import Dialog from 'material-ui/Dialog';
-import Checkbox from 'material-ui/Checkbox'
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
-import Img from 'react-image';
-import TextField from 'material-ui/TextField';
-import Textarea from 'muicss/lib/react/textarea';
+import OfferForm from '../components/OfferForm';
 import Offer from '../components/Offer';
 import _ from 'lodash/collection';
 
@@ -37,6 +22,7 @@ class Offers extends Component {
   componentDidMount() {
     this.props.getOffers();
   }
+
 
     // geocodeByAddress(this.state.address)
     //   .then(results => getLatLng(results[0]))
@@ -47,6 +33,7 @@ class Offers extends Component {
 
     let offers = _.map(this.props.offers, (offer) => {
       return {
+        id: offer.uuid,
         name: offer.name,
         image: offer.image,
         disposable: offer.disposable,
@@ -61,21 +48,13 @@ class Offers extends Component {
         cost: offer.cost
       }
     });
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.props.changeModalStatus}
-      />,
-      <FlatButton
-        label="Save"
-        primary={true}
-        keyboardFocused={true}
-      />,
-    ];
+
     return(
       <div>
         <Paper className="page">
+          <Subheader
+            openModal={this.props.changeCreateModalStatus}
+          />
           <div className="offers">
             {offers.map((item, i) => (
                 <Offer
@@ -83,6 +62,8 @@ class Offers extends Component {
                   key={i}
                   changeModalStatus={this.props.changeModalStatus}
                   offer={{
+                    modalVisited: this.props.modalVisited,
+                    id: item.id,
                     name: item.name,
                     image: item.image,
                     disposable: item.disposable,
@@ -101,59 +82,16 @@ class Offers extends Component {
               )
             )}
           </div>
-          <Dialog
-            actions={actions}
-            modal={true}
-            open={this.props.isModalOpen}
-            style={{display: 'block'}}
-            contentClassName="modal-dialog"
-            autoScrollBodyContent={true}
-          >
-            <form action="">
-              <TextField
-                hintText="name"
-                onChange={(e) => {this.props.editModalName(e.target.value)}}
-              />
-              <TextField
-                hintText="% discount"
-                onChange={(e) => {this.props.editModalPercentageDiscount(e.target.value)}}
-              />
-              <TextField
-                hintText="$ discount"
-                onChange={(e) => {this.props.editModalCurrencyDiscount(e.target.value)}}
-              />
-              <TextField
-                hintText="cost"
-                onChange={(e) => {this.props.editModalCost(e.target.value)}}
-              />
-              <TextField
-                hintText="% discount limit"
-                onChange={(e) => {this.props.editModalPercentageDiscountLimit(e.target.value)}}
-              />
-              <TextField
-                hintText="$ discount limit"
-                onChange={(e) => {this.props.editModalCurrencyDiscountLimit(e.target.value)}}
-              />
-
-
-              <Textarea
-                hint="description"
-                onChange={(e) => {this.props.editModalDescription(e.target.value)}}
-              />
-              <PlacesAutocomplete
-                inputProps={{
-                  value: this.props.geolocation,
-                  onChange: this.props.editGeolocation
-                }}
-              />
-              <FileInput
-                accept=".png,.gif"
-                name="myImage"
-              >
-                <FlatButton label="choose file"/>
-              </FileInput>
-            </form>
-          </Dialog>
+          <OfferForm
+            label="SAVE"
+            func={this.props.editOffer}
+            isModalOpen={this.props.isModalOpen}
+          />
+          <OfferForm
+            label="CREATE"
+            func={this.props.createOffer}
+            isModalOpen={this.props.isCreateModalOpen}
+          />
         </Paper>
       </div>
     )
@@ -165,10 +103,58 @@ export default withRouter(connect(
   state => ({
     offers: state.offers.items,
     isModalOpen: state.offers.isModalOpen,
+    isCreateModalOpen: state.offers.isCreateModalOpen,
     currentOffer: state.offers.currentOffer,
     geolocation: state.offerForm.geolocation,
+    offerForm: state.offerForm,
+    modalVisited: state.offerForm.visited
   }),
   dispatch => ({
+    createOffer: (
+      image, id, name, description, disposable,
+      geolocation, percentage_discount, currency_discount,
+      use_bonus, percentage_discount_limit, currency_discount_limit, cost
+    ) => {
+      return dispatch(createOffer(
+        image,
+        id,
+        name,
+        description,
+        disposable,
+        geolocation,
+        percentage_discount,
+        currency_discount,
+        use_bonus,
+        percentage_discount_limit,
+        currency_discount_limit,
+        cost
+      ))
+    },
+    editOffer: (
+      image, id, name, description, disposable,
+      geolocation, percentage_discount, currency_discount,
+      use_bonus, percentage_discount_limit, currency_discount_limit, cost) => {
+      return dispatch(editOffer(
+        image,
+        id,
+        name,
+        description,
+        disposable,
+        geolocation,
+        percentage_discount,
+        currency_discount,
+        use_bonus,
+        percentage_discount_limit,
+        currency_discount_limit,
+        cost
+      ))
+    },
+    changeCreateModalStatus: () => {
+      dispatch(changeCreateModalStatus())
+    },
+    saveFile: (file) => {
+      dispatch(saveFile(file))
+    },
     getOffers: () => {
       return dispatch(getOffers())
     },
@@ -177,37 +163,6 @@ export default withRouter(connect(
     },
     changeModalStatus: () => {
       dispatch(changeModalStatus())
-    },
-    editModalUseBonusStatus: (use_bonus) => {
-      dispatch(editModalUseBonusStatus(use_bonus))
-    },
-    editModalPercentageDiscountLimit: (percentage_discount_limit) => {
-      dispatch(editModalPercentageDiscountLimit(percentage_discount_limit))
-    },
-    editModalPercentageDiscount: (percentage_discount) => {
-      dispatch(editModalPercentageDiscount(percentage_discount))
-    },
-    editModalName: (name) => {
-      dispatch(editModalName(name))
-    },
-    editModalDisposableStatus: (disposable_status) => {
-      dispatch(editModalDisposableStatus(disposable_status))
-    },
-    editModalDescription: (description) => {
-      dispatch(editModalDescription(description))
-    },
-    editModalCurrencyDiscount: (currency_discount) => {
-      dispatch(editModalCurrencyDiscount(currency_discount))
-    },
-    editModalCurrencyDiscountLimit: (currency_discount_limit) => {
-      dispatch(editModalCurrencyDiscountLimit(currency_discount_limit))
-    },
-    editModalCost: (cost) => {
-      dispatch(editModalCost(cost))
-    },
-    editGeolocation: (geolocation) => {
-      dispatch(editGeolocation(geolocation))
     }
-
   })
 )(Offers))

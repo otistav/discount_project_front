@@ -74,6 +74,13 @@ export function editGeolocation(geolocation) {
   }
 }
 
+export function saveFile(file) {
+  return {
+    type: constants.FILE,
+    payload: file,
+  }
+}
+
 export function editModalCurrencyDiscount(discount) {
   return {
     type: constants.MODAL_OFFER_CURRENCY_DISCOUNT_EDITED,
@@ -109,12 +116,14 @@ export function editModalCost(cost) {
   }
 }
 
-export const editOffer = (
+
+export const createOffer = (
+  image,
+  id,
   name,
   description,
   disposable,
-  latitude,
-  longitude,
+  geolocation,
   percentage_discount,
   currency_discount,
   use_bonus,
@@ -126,25 +135,147 @@ export const editOffer = (
     dispatch({
       type: constants.EDIT_OFFERS_START
     });
-    return axios.patch('http://localhost:3001/offers', {
-
-      name: name,
-      description: description,
-
-
-    })
-      .then(res => {
-        dispatch({
-          type: constants.EDIT_OFFERS_SUCCESS,
-          payload: res.data
+    if (image.get('image')) {
+      return axios.post('http://localhost:3001/files/', image)
+        .then(res => {
+          return axios.post('http://localhost:3001/offers/', {
+            options: {
+              name: name,
+              description: description,
+              disposable: disposable,
+              location: geolocation,
+              percentage_discount: percentage_discount,
+              percentage_discount_limit: percentage_discount_limit,
+              currency_discount: currency_discount,
+              currency_discount_limit: currency_discount_limit,
+              cost: cost,
+              use_bonus: use_bonus,
+              image: res.data
+            }
+          })
         })
-      })
-      .catch(err => {
-        dispatch({
-          type: constants.EDIT_OFFERS_FAILURE,
-          payload: err
+        .then(() => {
+          console.log('bb');
+          return dispatch(getOffers());
         })
+        .then(() => {
+          dispatch(changeCreateModalStatus());
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+    else {
+      console.log('this is cost', cost);
+      return axios.post('http://localhost:3001/offers/', {
+        options: {
+          name: name,
+          description: description,
+          disposable: disposable,
+          location: geolocation,
+          percentage_discount: percentage_discount,
+          percentage_discount_limit: percentage_discount_limit,
+          currency_discount: currency_discount,
+          currency_discount_limit: currency_discount_limit,
+          cost: cost,
+          use_bonus: use_bonus,
+        }
       })
+        .then((res) => {
+          return dispatch(getOffers());
+        })
+        .then(() => {
+          dispatch(changeCreateModalStatus());
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
   }
 };
+
+export const editOffer = (
+  image,
+  id,
+  name,
+  description,
+  disposable,
+  geolocation,
+  percentage_discount,
+  currency_discount,
+  use_bonus,
+  percentage_discount_limit,
+  currency_discount_limit,
+  cost
+) => {
+  return dispatch => {
+    dispatch({
+      type: constants.EDIT_OFFERS_START
+    });
+    if (image.get('image')) {
+      return axios.post('http://localhost:3001/files/', image)
+        .then(res => {
+          return axios.patch('http://localhost:3001/offers/'+ id, {
+            options: {
+              name: name,
+              description: description,
+              disposable: disposable,
+              location: geolocation,
+              percentage_discount: percentage_discount,
+              percentage_discount_limit: percentage_discount_limit,
+              currency_discount: currency_discount,
+              currency_discount_limit: currency_discount_limit,
+              cost: cost,
+              use_bonus: use_bonus,
+              image: res.data
+            }
+          })
+        })
+        .then(() => {
+          console.log('bb');
+          return dispatch(getOffers());
+        })
+        .then(() => {
+          dispatch(changeModalStatus());
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+    else {
+      console.log('this is cost', cost);
+      return axios.patch('http://localhost:3001/offers/' + id, {
+        options: {
+          name: name,
+          description: description,
+          disposable: disposable,
+          location: geolocation,
+          percentage_discount: percentage_discount,
+          percentage_discount_limit: percentage_discount_limit,
+          currency_discount: currency_discount,
+          currency_discount_limit: currency_discount_limit,
+          cost: cost,
+          use_bonus: use_bonus,
+        }
+      })
+        .then((res) => {
+          return dispatch(getOffers());
+        })
+        .then(() => {
+          dispatch(changeModalStatus());
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+
+  }
+};
+
+
+export function changeCreateModalStatus() {
+  return {
+    type: constants.CHANGE_CREATE_MODAL_STATUS
+  }
+}
 
