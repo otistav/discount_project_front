@@ -1,5 +1,7 @@
 import axios from 'axios';
 import * as constants from '../constants/actions';
+import {EDIT_OFFERS_SUCCESS} from "../constants/actions";
+import {FETCH_OFFERS_SUCCESS} from "../constants/actions";
 export const getOffers = () =>  {
   return (dispatch) => {
     dispatch({
@@ -133,7 +135,7 @@ export const createOffer = (
 ) => {
   return dispatch => {
     dispatch({
-      type: constants.EDIT_OFFERS_START
+      type: constants.CREATE_OFFERS_START
     });
     if (image.get('image')) {
       return axios.post('http://localhost:3001/files/', image)
@@ -155,18 +157,31 @@ export const createOffer = (
           })
         })
         .then(() => {
-          console.log('bb');
+        dispatch({
+          type: constants.EDIT_OFFERS_SUCCESS
+        });
+        dispatch({
+          type: constants.FETCH_OFFERS_START
+        });
           return dispatch(getOffers());
         })
         .then(() => {
+          dispatch({
+            type: constants.FETCH_OFFERS_SUCCESS
+          });
           dispatch(changeCreateModalStatus());
         })
         .catch(err => {
           console.log(err);
+          dispatch({
+            type: constants.FETCH_OFFERS_FAILURE
+          })
         })
     }
     else {
-      console.log('this is cost', cost);
+      dispatch({
+        type: constants.CREATE_OFFERS_START
+      });
       return axios.post('http://localhost:3001/offers/', {
         options: {
           name: name,
@@ -182,9 +197,18 @@ export const createOffer = (
         }
       })
         .then((res) => {
+          dispatch({
+            type: constants.EDIT_OFFERS_SUCCESS
+          });
+          dispatch({
+            type: constants.FETCH_OFFERS_START
+          });
           return dispatch(getOffers());
         })
         .then(() => {
+          dispatch({
+            type: constants.FETCH_OFFERS_SUCCESS
+          });
           dispatch(changeCreateModalStatus());
         })
         .catch(err => {
@@ -232,7 +256,13 @@ export const editOffer = (
           })
         })
         .then(() => {
-          console.log('bb');
+          dispatch({
+            type: EDIT_OFFERS_SUCCESS
+          });
+          dispatch({
+            type: FETCH_OFFERS_SUCCESS
+          });
+
           return dispatch(getOffers());
         })
         .then(() => {
@@ -276,6 +306,13 @@ export const editOffer = (
 export function changeCreateModalStatus() {
   return {
     type: constants.CHANGE_CREATE_MODAL_STATUS
+  }
+}
+
+export function changeDiscount(discount) {
+  return {
+    type: constants.DISCOUNT_TYPE_CHANGED,
+    payload: discount
   }
 }
 

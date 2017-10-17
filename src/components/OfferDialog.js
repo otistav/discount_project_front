@@ -3,12 +3,12 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux';
 import '../styles/page.css';
 import '../styles/offers.css';
+import '../styles/offer-dialog.css';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import FlatButton from 'material-ui/FlatButton';
 
 import {
   getOffers,
-  changeModalStatus,
   setCurrentOffer,
   editModalCurrencyDiscount,
   editModalCurrencyDiscountLimit,
@@ -20,22 +20,18 @@ import {
   editModalUseBonusStatus,
   editModalCost,
   editGeolocation,
-  editOffer,
-  saveFile
+  changeDiscount,
+  saveFile,
 } from "../actions/offers";
-import Img from 'react-image';
+import RichTextEditor from 'react-rte';
+import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import Textarea from 'react-textarea-autosize';
-import FileInputBox from 'react-file-input-box'
 import Dialog from 'material-ui/Dialog';
-import Checkbox from 'material-ui/Checkbox'
-import ActionFavorite from 'material-ui/svg-icons/action/favorite';
-import get from 'lodash/get';
-import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import RaisedButton from 'material-ui/RaisedButton';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
-class OfferForm extends Component {
+class OfferDialog extends Component {
   constructor() {
     super();
     this.image = new FormData();
@@ -68,74 +64,32 @@ class OfferForm extends Component {
         }
       />,
     ];
-    const styles = {
-      block: {
-        maxWidth: 250,
-      },
-      radioButton: {
-        marginBottom: 16,
-      },
-    };
-    const defaultStyles = {
-      root: {
-        position: 'relative',
-        paddingBottom: '0px',
-      },
-      input: {
-        display: 'inline-block',
-        width: '100%',
-        padding: '10px',
-        backgroundColor: '#62656b',
-        color: 'white'
-      },
-      autocompleteContainer: {
-        position: 'absolute',
-        top: '100%',
-        backgroundColor: '#62656b',
-        border: '1px solid #555555',
-        width: '100%',
-      },
-      autocompleteItem: {
-        backgroundColor: '#62656b',
-        padding: '10px',
-        color: 'white',
-        cursor: 'pointer',
-      },
-      autocompleteItemActive: {
-        backgroundColor: '#62656b'
-      },
-      googleLogoContainer: {
-        textAlign: 'right',
-        padding: '1px',
-        backgroundColor: '#62656b'
-      },
-      googleLogoImage: {
-        width: 150
-      }
-    };
-    console.log(this.props.offerForm.percentage_discount, this.props.offerForm.currency_discount);
     return(
       <Dialog
+        className="dialog"
         actions={actions}
-        modal={true}
+        modal={false}
         open={this.props.isModalOpen}
-        style={{display: 'block'}}
         contentClassName="modal-dialog"
         autoScrollBodyContent={true}
       >
         <form>
-          <RadioButtonGroup onChange={(e, value) => {
-            this.props.changeDiscount(value)
-          }} name="shipSpeed" defaultSelected="currency">
+          <RadioButtonGroup
+            onChange={(e, value) => {
+              this.props.changeDiscount(value)
+            }}
+            name="shipSpeed"
+            defaultSelected="currency"
+          >
             <RadioButton
               value="currency"
               label="currency discount"
-              style={styles.radioButton}
+              className="radio-button"
             />
             <RadioButton
               value="percentage"
               label="percentage discount"
-              style={styles.radioButton}
+              className="radio-button"
             />
 
           </RadioButtonGroup>
@@ -143,76 +97,96 @@ class OfferForm extends Component {
             floatingLabelText="name"
             onChange={(e) => {this.props.editModalName(e.target.value)}}
             value={this.props.offerForm.name}
+            style={{marginRight: '10%'}}
           />
-          {this.props.discount_type === "percentage" ?
-            <div>
-              <TextField
-                floatingLabelText="% discount"
-                onChange={(e) => {this.props.editModalPercentageDiscount(e.target.value)}}
-                value={this.props.offerForm.percentage_discount ? this.props.offerForm.percentage_discount : 0}
-              />
-              <TextField
-                floatingLabelText="% discount limit"
-                onChange={(e) => {this.props.editModalPercentageDiscountLimit(e.target.value)}}
-                value={this.props.offerForm.percentage_discount_limit ? this.props.offerForm.percentage_discount_limit : 0}
-              />
-            </div>
-            :
-            <div>
-              <TextField
-                floatingLabelText="$ discount"
-                onChange={(e) => {this.props.editModalCurrencyDiscount(e.target.value)}}
-                value={this.props.offerForm.currency_discount ? this.props.offerForm.currency_discount : 0}
-              />
-              <TextField
-                floatingLabelText="$ discount limit"
-                onChange={(e) => {this.props.editModalCurrencyDiscountLimit(e.target.value)}}
-                value={this.props.offerForm.currency_discount_limit ? this.props.offerForm.currency_discount_limit : 0}
-              />
-            </div>
-          }
-
           <TextField
             floatingLabelText="cost"
             onChange={(e) => {this.props.editModalCost(e.target.value)}}
             value={this.props.offerForm.cost}
           />
+          {this.props.discount_type === "percentage" ?
+            <div>
+              <TextField
+                floatingLabelText="percentage discount"
+                onChange={(e) => {this.props.editModalPercentageDiscount(e.target.value)}}
+                style={{marginRight: '10%'}}
+                value={this.props.offerForm.percentage_discount ? this.props.offerForm.percentage_discount : ''}
+              />
+              <TextField
+                floatingLabelText="percentage discount limit"
+                onChange={(e) => {this.props.editModalPercentageDiscountLimit(e.target.value)}}
+                value={this.props.offerForm.percentage_discount_limit ? this.props.offerForm.percentage_discount_limit : ''}
+              />
+            </div>
+            :
+            <div>
+              <TextField
+                floatingLabelText="currency discount"
+                onChange={(e) => {this.props.editModalCurrencyDiscount(e.target.value)}}
+                value={this.props.offerForm.currency_discount ? this.props.offerForm.currency_discount : ''}
+                style={{marginRight: '10%'}}
+              />
+              <TextField
+                floatingLabelText="currency discount limit"
+                onChange={(e) => {this.props.editModalCurrencyDiscountLimit(e.target.value)}}
+                value={this.props.offerForm.currency_discount_limit ? this.props.offerForm.currency_discount_limit : ''}
+              />
+            </div>
+          }
 
 
-
+          <div className="checkboxes-container">
+            <div className="checkboxes">
+              <Checkbox
+                label="Use bonus discount"
+                className="checkbox"
+                onCheck={() => {this.props.editModalUseBonusStatus()}}
+                checked={this.props.offerForm.use_bonus}
+              />
+              <Checkbox
+                label="Disposable"
+                className="checkbox"
+                onCheck={() => {this.props.editModalDisposableStatus()}}
+                checked={this.props.offerForm.disposable}
+              />
+            </div>
+          </div>
 
           <Textarea
             cols={100}
-            rows={40}
             value={this.props.offerForm.description}
-            // style={{minWidth: '100px', minHeight: '100px'}}
+            className="textarea"
             hint="description"
             onChange={(e) => {this.props.editModalDescription(e.target.value)}}
           />
-          <PlacesAutocomplete
-            styles={defaultStyles}
-            inputProps={{
-              value: this.props.geolocation,
-              onChange: this.props.editGeolocation
-            }}
-          />
-          {/*<FileInputBox*/}
-            {/*handleInput={(e) => {this.image.append('image', e.target.files[0])}}*/}
-            {/*name="string" label="string"*/}
-          {/*>*/}
-            {/*Example*/}
-          {/*</FileInputBox>*/}
+
           <RaisedButton className="file-picker-button" label="Add file" primary={true} >
-            <input type="file" onChange={(
-              (e) => {
-                this.image.append('image', e.target.files[0]);
-                console.log(e.target.files);
-                let reader = new FileReader();
-                let url = reader.readAsDataURL(e.target.files[0]);
-                console.log(url, 'this is url')
-              }
-            )} />
+            <input
+              type="file"
+              onChange={(
+                (e) => {
+                  this.image.append('image', e.target.files[0]);
+                }
+              )}
+            />
           </RaisedButton>
+          <div className="places-autocomplete">
+            <PlacesAutocomplete
+              classNames={{
+                root: 'root',
+                input: 'input',
+                autocompleteContainer: 'autocomplete-container',
+                autocompleteItem: 'autocomplete-item',
+                autocompleteItemActive: 'autocomplete-item-active',
+                googleLogoContainer: 'google-logo-container',
+                googleLogoImage: 'google-logo-image'
+              }}
+              inputProps={{
+                value: this.props.geolocation,
+                onChange: this.props.editGeolocation
+              }}
+            />
+          </div>
 
         </form>
       </Dialog>
@@ -235,7 +209,7 @@ export default withRouter(connect(
   dispatch => ({
 
     changeDiscount: (discount) => {
-      dispatch({type: 'DISCOUNT_TYPE_CHANGED', payload: discount})
+      dispatch(changeDiscount(discount))
     },
     saveFile: (file) => {
       dispatch(saveFile(file))
@@ -246,11 +220,9 @@ export default withRouter(connect(
     setCurrentOffer: (offer) => {
       dispatch(setCurrentOffer(offer))
     },
-    changeModalStatus: () => {
-      dispatch(changeModalStatus())
-    },
-    editModalUseBonusStatus: (use_bonus) => {
-      dispatch(editModalUseBonusStatus(use_bonus))
+
+    editModalUseBonusStatus: () => {
+      dispatch(editModalUseBonusStatus())
     },
     editModalPercentageDiscountLimit: (percentage_discount_limit) => {
       dispatch(editModalPercentageDiscountLimit(percentage_discount_limit))
@@ -261,8 +233,8 @@ export default withRouter(connect(
     editModalName: (name) => {
       dispatch(editModalName(name))
     },
-    editModalDisposableStatus: (disposable_status) => {
-      dispatch(editModalDisposableStatus(disposable_status))
+    editModalDisposableStatus: () => {
+      dispatch(editModalDisposableStatus())
     },
     editModalDescription: (description) => {
       dispatch(editModalDescription(description))
@@ -281,4 +253,4 @@ export default withRouter(connect(
     }
 
   })
-)(OfferForm))
+)(OfferDialog))

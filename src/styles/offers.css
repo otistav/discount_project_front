@@ -1,10 +1,28 @@
 .offer {
     border: 1px inset #73899c;
     position: relative;
+    margin: 10px;
+    min-width: 300px;
+}
+
+.content {
+    width: 100%;
 }
 
 .offers {
-    display: inline-flex;
+    display: grid;
+    grid-template-columns: 400px 400px 400px 400px;
+    margin: 3%;
+}
+
+.left {
+    float: left;
+    width: 50%;
+}
+
+.right {
+    float: left;
+    width: 50%;
 }
 
 .edit-button {
@@ -13,18 +31,27 @@
     right: 0;
 }
 
-.file-picker-button input{
-    opacity: 0;
-    z-index: 90;
-    width: 90px;
-    height: 36px;
-    position: absolute;
-}
+
 
 .offer-description {
-    float: right;
-    max-width: 150px;
+    float: left;
+    overflow: hidden;
+    /*white-space: nowrap;*/
+    text-overflow: ellipsis;
+    height: 160px;
+    max-width: 200px;
 }
+
+.offer-description:hover {
+    position: absolute;
+    height: auto;
+}
+
+.offer-name {
+    font-size: 20px;
+    color: #f6d3ff
+}
+
 
 .offer-info {
     margin-bottom: 4px;

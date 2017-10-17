@@ -25,7 +25,7 @@ export default function offerForm(
     case constants.MODAL_OFFER_DISPOSABLE_EDITED: {
       return {
         ...state,
-        disposable: action.payload
+        disposable: !state.disposable
       }
     }
     case constants.MODAL_OFFER_PERCENTAGE_DISCOUNT_EDITED: {
@@ -47,7 +47,7 @@ export default function offerForm(
     case constants.MODAL_OFFER_USE_BONUS_EDITED: {
       return {
         ...state,
-        use_bonus: action.payload
+        use_bonus: !state.use_bonus
       }
     }
     case constants.MODAL_OFFER_COST_EDITED: {
@@ -85,12 +85,13 @@ export default function offerForm(
         visited: true
       }
     }
-    case "DISCOUNT_TYPE_CHANGED": {
+    case constants.DISCOUNT_TYPE_CHANGED: {
       return {
         ...state,
         discount_type: action.payload
       }
     }
+
     case constants.FILE: {
       console.log(action);
       return {

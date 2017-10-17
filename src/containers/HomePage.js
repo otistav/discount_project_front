@@ -8,6 +8,7 @@ import '../styles/page.css';
 import _ from 'lodash/collection';
 import '../../node_modules/react-vis/dist/style.css';
 import '../styles/diagram.css';
+import RichTextEditor from 'react-rte';
 import Diagram from '../components/Diagram';
 import SideBar from '../containers/SideBar';
 
@@ -24,7 +25,6 @@ class HomePage extends Component {
     if (!(localStorage.getItem('access_token') && localStorage.getItem('refresh_token')))
       this.props.history.replace('/sign-in');
   }
-
 
   render() {
 

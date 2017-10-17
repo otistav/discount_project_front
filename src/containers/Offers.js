@@ -14,7 +14,7 @@ import {
   changeCreateModalStatus,
   createOffer
 } from "../actions/offers";
-import OfferForm from '../components/OfferForm';
+import OfferDialog from '../components/OfferDialog';
 import Offer from '../components/Offer';
 import _ from 'lodash/collection';
 
@@ -54,6 +54,9 @@ class Offers extends Component {
         <Paper className="page">
           <Subheader
             openModal={this.props.changeCreateModalStatus}
+            subheaderName="Offers"
+            label="CREATE OFFER"
+
           />
           <div className="offers">
             {offers.map((item, i) => (
@@ -82,13 +85,15 @@ class Offers extends Component {
               )
             )}
           </div>
-          <OfferForm
+          <OfferDialog
             label="SAVE"
             func={this.props.editOffer}
+            changeModalStatus={this.props.changeModalStatus}
             isModalOpen={this.props.isModalOpen}
           />
-          <OfferForm
+          <OfferDialog
             label="CREATE"
+            changeModalStatus={this.props.changeCreateModalStatus}
             func={this.props.createOffer}
             isModalOpen={this.props.isCreateModalOpen}
           />
@@ -149,6 +154,9 @@ export default withRouter(connect(
         cost
       ))
     },
+    changeModalStatus: () => {
+      dispatch(changeModalStatus())
+    },
     changeCreateModalStatus: () => {
       dispatch(changeCreateModalStatus())
     },
@@ -160,9 +168,6 @@ export default withRouter(connect(
     },
     setCurrentOffer: (offer) => {
       dispatch(setCurrentOffer(offer))
-    },
-    changeModalStatus: () => {
-      dispatch(changeModalStatus())
     }
   })
 )(Offers))

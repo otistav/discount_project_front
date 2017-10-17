@@ -1,0 +1,88 @@
+.radio-button {
+    margin-bottom: 16px;
+}
+
+
+.textarea {
+    min-height: 100px;
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 3%;
+    background-color: #4f4e4b;
+    color: white;
+}
+
+.checkboxes-container {
+    display: block;
+    margin-top: 5%;
+    margin-bottom: 3%;
+}
+
+.checkboxes {
+    display: inline-flex;
+}
+
+.file-picker-button {
+    margin-bottom: 3%;
+}
+
+.places-autocomplete {
+    margin-bottom: 3%;
+}
+
+.file-picker-button input{
+    opacity: 0;
+    z-index: 90;
+    width: 90px;
+    height: 36px;
+    position: absolute;
+}
+
+.checkbox {
+    margin-bottom: 16px;
+}
+
+/* Places Autocomplete styles below */
+
+.root {
+    padding-bottom: 0px;
+}
+
+.input {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    background-color: #62656b;
+    color: white;
+}
+
+.autocomplete-container {
+    position: absolute;
+    top: 86%;
+    left: 0;
+    background-color: #62656b;
+    border: 1px solid #555555;
+    width: 77%;
+
+}
+
+.autocomplete-item {
+    background-color: #62656b;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.autocomplete-item-active {
+    background-color: #2e2142;
+}
+
+.google-logo-container {
+    text-align: right;
+    padding: 1px;
+    background-color: #62656b;
+}
+
+.google-logo-image {
+    width: 150px;
+}
