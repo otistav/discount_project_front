@@ -59,4 +59,15 @@ export const DISCOUNT_TYPE_CHANGED = 'DISCOUNT_TYPE_CHANGED';
 
 export const FILE = 'FILE';
 
+//users
+
+export const FETCH_USERS_START = 'FETCH_USERS_START';
+export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
+export const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE';
+
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+
+
+
+
 

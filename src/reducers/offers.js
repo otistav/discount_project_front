@@ -5,6 +5,7 @@ export default function offers(
   state = {
     isFetching: false,
     items: [],
+    error: null,
     isModalOpen: false,
     currentOffer: {}
   }, action) {
@@ -13,14 +14,16 @@ export default function offers(
     case constants.FETCH_OFFERS_START: {
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
+        error: null
       }
     }
     case constants.FETCH_OFFERS_SUCCESS: {
       return {
         ...state,
         items: action.payload,
-        isFetching: false
+        isFetching: false,
+        error: null
       }
     }
     case constants.FETCH_OFFERS_FAILURE: {
@@ -33,20 +36,23 @@ export default function offers(
     case constants.CHANGE_CREATE_MODAL_STATUS: {
       return {
         ...state,
-        isCreateModalOpen: !state.isCreateModalOpen
+        isCreateModalOpen: !state.isCreateModalOpen,
+        error: null
       }
     }
 
     case constants.CHANGE_MODAL_STATUS: {
       return {
         ...state,
-        isModalOpen: !state.isModalOpen
+        isModalOpen: !state.isModalOpen,
+        error: null
       }
     }
     case constants.SET_CURRENT_OFFER: {
       return {
         ...state,
-        currentOffer: action.payload
+        currentOffer: action.payload,
+        error: null
       }
     }
     default: return state;

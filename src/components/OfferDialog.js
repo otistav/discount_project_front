@@ -160,7 +160,7 @@ class OfferDialog extends Component {
             onChange={(e) => {this.props.editModalDescription(e.target.value)}}
           />
 
-          <RaisedButton className="file-picker-button" label="Add file" primary={true} >
+          <RaisedButton className="file-picker-button" label="Add file" primary={true} > //TODO add file preloader
             <input
               type="file"
               onChange={(

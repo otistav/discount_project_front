@@ -174,7 +174,8 @@ export const createOffer = (
         .catch(err => {
           console.log(err);
           dispatch({
-            type: constants.FETCH_OFFERS_FAILURE
+            type: constants.FETCH_OFFERS_FAILURE,
+            payload: err
           })
         })
     }
@@ -212,6 +213,10 @@ export const createOffer = (
           dispatch(changeCreateModalStatus());
         })
         .catch(err => {
+          dispatch({
+            type: constants.FETCH_OFFERS_FAILURE,
+            payload: err
+          })
           console.log(err);
         })
     }
@@ -270,6 +275,10 @@ export const editOffer = (
         })
         .catch(err => {
           console.log(err);
+          dispatch({
+            type: constants.FETCH_OFFERS_FAILURE,
+            payload: err
+          })
         })
     }
     else {
@@ -295,6 +304,10 @@ export const editOffer = (
           dispatch(changeModalStatus());
         })
         .catch(err => {
+          dispatch({
+            type: constants.FETCH_OFFERS_FAILURE,
+            payload: err
+          })
           console.log(err);
         })
     }

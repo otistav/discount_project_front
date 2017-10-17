@@ -11,6 +11,7 @@ import Login from './containers/Login';
 import HomePage from './containers/HomePage';
 import SideBar from './containers/SideBar';
 import Offers from './containers/Offers';
+import Users from './containers/Users';
 import FlatButton from 'material-ui/FlatButton';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -44,6 +45,7 @@ class App extends Component {
             <Route path="/" exact component={HomePage}/>
             <Route path="/sign-up" component={Register} />
             <Route path="/sign-in" component={Login} />
+            <Route path="/users" component={Users}/>
 
           </div>
         </MuiThemeProvider>

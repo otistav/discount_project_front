@@ -17,7 +17,7 @@ import {
 import OfferDialog from '../components/OfferDialog';
 import Offer from '../components/Offer';
 import _ from 'lodash/collection';
-
+import Snackbar from 'material-ui/Snackbar';
 class Offers extends Component {
   componentDidMount() {
     this.props.getOffers();
@@ -51,6 +51,12 @@ class Offers extends Component {
 
     return(
       <div>
+        {this.props.error ? <Snackbar
+          open={this.props.error}
+          message={this.props.error.response.data.message ? this.props.error.response.message : this.props.error.message}
+          bodyStyle={{background: 'red', opacity: '0.5'}}
+          autoHideDuration={4000}
+        /> : null}
         <Paper className="page">
           <Subheader
             openModal={this.props.changeCreateModalStatus}
@@ -107,6 +113,7 @@ class Offers extends Component {
 export default withRouter(connect(
   state => ({
     offers: state.offers.items,
+    error: state.offers.error,
     isModalOpen: state.offers.isModalOpen,
     isCreateModalOpen: state.offers.isCreateModalOpen,
     currentOffer: state.offers.currentOffer,

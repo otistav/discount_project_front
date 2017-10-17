@@ -64,10 +64,12 @@
     border: 1px solid #555555;
     width: 77%;
 
+
 }
 
 .autocomplete-item {
     background-color: #62656b;
+    height: 10px;
     padding: 10px;
     color: white;
     cursor: pointer;

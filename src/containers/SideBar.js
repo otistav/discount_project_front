@@ -40,6 +40,7 @@ class SideBar extends Component {
               />
               <MenuItem
                 primaryText="Users"
+                containerElement={<Link to={'/users'}/>}
                 leftIcon={<Icon name="user-o"/>}
                 style={{width: '85%'}}
               />

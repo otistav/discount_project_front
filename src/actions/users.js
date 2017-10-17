@@ -1,5 +1,5 @@
 import axios from 'axios'
-import jwt from 'jsonwebtoken'
+import * as constants from '../constants/actions';
 
 export function getUser(access_token, id) {
   return (dispatch) => {
@@ -19,5 +19,23 @@ export function getUser(access_token, id) {
 
 
 export function getAllUsers() {
-
+  return dispatch => {
+    dispatch({
+      type: constants.FETCH_USERS_START
+    });
+    return axios.get('http://localhost:3001/users')
+      .then(users => {
+        dispatch({
+          type: constants.FETCH_USERS_SUCCESS,
+          payload: users.data
+        })
+      })
+      .catch(e => {
+        dispatch({
+          type: constants.FETCH_USERS_FAILURE,
+          payload: e
+        });
+        console.log(e);
+      })
+  }
 }
