@@ -82,15 +82,16 @@ class UserDialog extends Component{
             <div className="purchases-info">
               {map(this.props.currentUser.offers, offer => (
                   <div className="purchase">
-                    <div>offer: {offer.name}</div>
-                    <div>cost: {offer.cost}</div>
-                    <Img src={"http://localhost:3000/" + offer.image} style={{width: '100px', height: '100px'}}/>
-                    <div>User Discount: {offer.Deal.final_discount}</div>
+                    <div className="user-offer-element">offer: <span className="user-offer-name">{offer.name}</span></div>
+                    <div className="user-offer-element">cost: {offer.cost}</div>
+                    <Img src={"http://localhost:3000/" + offer.image} style={{width: '100px', marginLeft: '25px', height: '100px'}}/>
+                    <div className="user-offer-element">User Discount: {offer.Deal.final_discount}</div>
 
                   </div>
 
                 )
-              )}
+              )
+            }
             </div>
 
           </Tab>

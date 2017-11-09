@@ -32,6 +32,9 @@
     margin-right: 10px;
 }
 
+.navigation-link.active {
+    text-decoration: underline;
+}
 
 
 .page-links {

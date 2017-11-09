@@ -1,5 +1,6 @@
 import axios from 'axios'
 import * as constants from '../constants/actions';
+import refreshToken from '../middlewares/refreshTokenMiddleware.js'
 import * as configConstants from '../constants/config';
 export function getUser(access_token, id) {
   return (dispatch) => {
@@ -11,7 +12,7 @@ export function getUser(access_token, id) {
       })
       .catch(e => {
         if (e.response.status === 499) {
-
+          console.log("HEY, TOKEN MISSED")
         }
       })
   }
@@ -24,7 +25,13 @@ export function getAllUsers(offset) {
     dispatch({
       type: constants.FETCH_USERS_START
     });
-    return axios.get('http://localhost:3001/users?offset=' + offset + '&limit=' + configConstants.USERS_LIMIT_PER_PAGE)
+    return refreshToken(
+      {
+        method: 'GET',
+        url: 'http://localhost:3001/users?offset=' + offset + '&limit=' + configConstants.USERS_LIMIT_PER_PAGE,
+        headers: {access_token: localStorage.getItem('access_token')}
+      }
+    )
       .then(users => {
         console.log(users);
         dispatch({

@@ -64,15 +64,15 @@ class Users extends Component {
     if (this.props.match.params.id === "1")
       return [
         <span className="navigation-link" style={{color: 'grey'}}>prev</span>,
-        <Link className="navigation-link" to={"/users/" + (Number(this.props.match.params.id) + 1)}>next</Link>];
+        <Link className="navigation-link active" to={"/users/" + (Number(this.props.match.params.id) + 1)}>next</Link>];
     if (Number(this.props.match.params.id) === Math.ceil(this.props.numberOfUsers/configConstants.USERS_LIMIT_PER_PAGE))
       return [
-        <Link className="navigation-link" to={"/users/" + (Number(this.props.match.params.id) -1)}>prev</Link>,
+        <Link className="navigation-link active" to={"/users/" + (Number(this.props.match.params.id) -1)}>prev</Link>,
         <span className="navigation-link" style={{color: 'grey'}}>next</span>
       ];
     return [
-      <Link className="navigation-link" to={"/users/" + (Number(this.props.match.params.id) -1)}>prev</Link>,
-      <Link className="navigation-link" to={"/users/" + (Number(this.props.match.params.id) + 1)}>next</Link>
+      <Link className="navigation-link active" to={"/users/" + (Number(this.props.match.params.id) -1)}>prev</Link>,
+      <Link className="navigation-link active" to={"/users/" + (Number(this.props.match.params.id) + 1)}>next</Link>
     ]
   };
 
