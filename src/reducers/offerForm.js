@@ -28,6 +28,13 @@ export default function offerForm(
         disposable: !state.disposable
       }
     }
+
+    case constants.LOAD_IMAGE_SUCCESS: {
+      return {
+        ...state,
+        current_image: action.payload
+      }
+    }
     case constants.MODAL_OFFER_PERCENTAGE_DISCOUNT_EDITED: {
       return {
         ...state,

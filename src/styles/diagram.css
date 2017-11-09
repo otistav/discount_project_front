@@ -21,6 +21,10 @@
 }
 
 .statistic {
-    margin-right: 3%;
-    float: right;
+    display: flex;
+    justify-content: space-around;
+    /*padding: 20px;*/
+    /*float: right;*/
+    /*border: 2px solid red;*/
+
 }

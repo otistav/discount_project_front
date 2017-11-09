@@ -223,6 +223,24 @@ export const createOffer = (
   }
 };
 
+export const loadImage = (image) => {
+  return dispatch => {
+    dispatch({
+      type: constants.LOAD_IMAGE_START
+    })
+    return axios.post('http://localhost:3001/files/', image)
+      .then(res => {
+        dispatch({
+          type: constants.LOAD_IMAGE_SUCCESS,
+          payload: res.data
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+}
+
 export const editOffer = (
   image,
   id,
@@ -244,6 +262,7 @@ export const editOffer = (
     if (image.get('image')) {
       return axios.post('http://localhost:3001/files/', image)
         .then(res => {
+          console.log(res, 'this is result of uploading image')
           return axios.patch('http://localhost:3001/offers/'+ id, {
             options: {
               name: name,
@@ -328,4 +347,3 @@ export function changeDiscount(discount) {
     payload: discount
   }
 }
-

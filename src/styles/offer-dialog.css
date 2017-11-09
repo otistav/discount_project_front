@@ -2,6 +2,11 @@
     margin-bottom: 16px;
 }
 
+.preload-image {
+  width: 100px;
+  height: 100px;
+  padding-left: 20px;
+}
 
 .textarea {
     min-height: 100px;
@@ -40,6 +45,7 @@
 
 .checkbox {
     margin-bottom: 16px;
+    margin-right: 50px;
 }
 
 /* Places Autocomplete styles below */

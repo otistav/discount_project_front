@@ -18,31 +18,36 @@ import {
 class SideBar extends Component {
 
   render() {
-    console.log(localStorage.getItem('access_token'), 'this is access token')
+    console.log(localStorage.getItem('access_token'), 'this is access token');
+    console.log(this.props.location);
+
     return(
       <div>
         {localStorage.getItem('access_token') && localStorage.getItem('refresh_token')
           ?
-          <Paper className="side-bar" >
+          <Paper className="side-bar" style={{backgroundColor: 'RGB(54, 150, 167)'}} >
             <Menu disableAutoFocus={true}>
               <MenuItem
+                className="menu-item"
                 primaryText="Dashboard"
-                style={{width: '85%'}}
+                style={{ backgroundColor: this.props.location.pathname === '/' ? 'rgb(94, 194, 214)' : 'transparent'}}
                 containerElement={<Link to={'/'} />}
                 leftIcon={<Icon name="bar-chart"/>}
               />
               <Divider/>
               <MenuItem
+                className="menu-item"
                 primaryText="Offers"
                 containerElement={<Link to={'/offers'}/>}
                 leftIcon={<Icon name="handshake-o"/>}
-                style={{width: '85%'}}
+                style={{ backgroundColor: this.props.location.pathname === '/offers' ? 'rgb(94, 194, 214)' : 'transparent'}}
               />
               <MenuItem
+                className="menu-item"
                 primaryText="Users"
-                containerElement={<Link to={'/users'}/>}
+                containerElement={<Link to={'/users/1'}/>}
                 leftIcon={<Icon name="user-o"/>}
-                style={{width: '85%'}}
+                style={{ backgroundColor: this.props.location.pathname.indexOf('/users') > -1 ? 'rgb(94, 194, 214)' : 'transparent'}}
               />
             </Menu>
           </Paper>

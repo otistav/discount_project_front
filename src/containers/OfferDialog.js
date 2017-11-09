@@ -9,6 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 import {
   getOffers,
+  loadImage,
   setCurrentOffer,
   editModalCurrencyDiscount,
   editModalCurrencyDiscountLimit,
@@ -29,12 +30,15 @@ import TextField from 'material-ui/TextField';
 import Textarea from 'react-textarea-autosize';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 class OfferDialog extends Component {
   constructor() {
     super();
     this.image = new FormData();
+    this.state = {
+      currentImageURL: ''
+    }
 
   }
 
@@ -45,7 +49,14 @@ class OfferDialog extends Component {
       <FlatButton
         label="Cancel"
         primary={true}
-        onClick={this.props.changeModalStatus}
+        onClick={() => {
+          this.props.changeModalStatus();
+          this.setState({
+            currentImageURL: ''
+          })
+          // this.image = new FormData()
+        }
+      }
       />,
       <FlatButton
         label={this.props.label}
@@ -59,7 +70,11 @@ class OfferDialog extends Component {
               offer.disposable, offer.geolocation, offer.percentage_discount,
               offer.currency_discount, offer.use_bonus, offer.percentage_discount_limit,
               offer.currency_discount_limit, offer.cost
-            )
+            );
+            this.setState({
+              currentImageURL: ''
+            });
+            this.image = new FormData();
           }
         }
       />,
@@ -110,7 +125,7 @@ class OfferDialog extends Component {
                 floatingLabelText="percentage discount"
                 onChange={(e) => {this.props.editModalPercentageDiscount(e.target.value)}}
                 style={{marginRight: '10%'}}
-                value={this.props.offerForm.percentage_discount ? this.props.offerForm.percentage_discount : ''}
+                value={this.props.offerForm.percentage_discount ? this.props.offerForm.percentage_discount : '' }
               />
               <TextField
                 floatingLabelText="percentage discount limit"
@@ -123,13 +138,13 @@ class OfferDialog extends Component {
               <TextField
                 floatingLabelText="currency discount"
                 onChange={(e) => {this.props.editModalCurrencyDiscount(e.target.value)}}
-                value={this.props.offerForm.currency_discount ? this.props.offerForm.currency_discount : ''}
+                value={this.props.offerForm.currency_discount ? this.props.offerForm.currency_discount : '' }
                 style={{marginRight: '10%'}}
               />
               <TextField
                 floatingLabelText="currency discount limit"
                 onChange={(e) => {this.props.editModalCurrencyDiscountLimit(e.target.value)}}
-                value={this.props.offerForm.currency_discount_limit ? this.props.offerForm.currency_discount_limit : ''}
+                value={this.props.offerForm.currency_discount_limit ? this.props.offerForm.currency_discount_limit : '' }
               />
             </div>
           }
@@ -160,16 +175,19 @@ class OfferDialog extends Component {
             onChange={(e) => {this.props.editModalDescription(e.target.value)}}
           />
 
-          <RaisedButton className="file-picker-button" label="Add file" primary={true} > //TODO add file preloader
+          <RaisedButton className="file-picker-button" label="Add file" primary={true} >
             <input
               type="file"
               onChange={(
                 (e) => {
                   this.image.append('image', e.target.files[0]);
+                  this.setState({currentImageURL:window.URL.createObjectURL(e.target.files[0])});
+
                 }
               )}
             />
           </RaisedButton>
+          <img src={this.state.currentImageURL} className="preload-image" alt="No File Choosen"/>
           <div className="places-autocomplete">
             <PlacesAutocomplete
               classNames={{
@@ -211,6 +229,7 @@ export default withRouter(connect(
     changeDiscount: (discount) => {
       dispatch(changeDiscount(discount))
     },
+
     saveFile: (file) => {
       dispatch(saveFile(file))
     },

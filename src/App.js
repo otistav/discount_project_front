@@ -45,7 +45,7 @@ class App extends Component {
             <Route path="/" exact component={HomePage}/>
             <Route path="/sign-up" component={Register} />
             <Route path="/sign-in" component={Login} />
-            <Route path="/users" component={Users}/>
+            <Route path="/users/:id" component={Users}/>
 
           </div>
         </MuiThemeProvider>

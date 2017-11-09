@@ -1,0 +1,25 @@
+.user-info {
+
+}
+
+.username, .user-role, .user-first-name, .user-last-name {
+    margin: 2%;
+}
+
+.dropdown {
+    display: inline-flex;
+    position: relative;
+    top: 2px;
+    color: #ad9f89;
+}
+
+.purchases-info {
+    position: relative;
+    display: grid;
+    grid-template-columns: 200px 200px 200px;
+}
+
+.purchase {
+    border: 1px inset #73899c;
+    margin: 3%;
+}

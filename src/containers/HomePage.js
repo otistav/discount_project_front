@@ -42,34 +42,37 @@ class HomePage extends Component {
     return(
         <div>
           <Paper className="page">
-            <div className="statistic">
+            <div className="statistic-wrapper">
               <div className="statistic-header">
-                SomeStatistic
+                Some Statistic
               </div>
-              <div className="diagrams">
+              <div className="statistic">
+                <div className="diagrams">
 
-                <Diagram
-                  header="Basic Auth Diagram"
-                  currentValue={this.props.currentValue}
-                  id={1}
-                  statistic={basic_auth_statistic}
-                  setCurrentStatisticValue={this.props.setCurrentStatisticValue}
-                />
-                <Diagram
-                  header="Social Auth Statistic"
-                  currentValue={this.props.currentValue}
-                  id={2}
-                  statistic={social_auth_statistic}
-                  setCurrentStatisticValue={this.props.setCurrentStatisticValue}
-                />
-                <Diagram
-                  header="Refresh Token Statistic"
-                  currentValue={this.props.currentValue}
-                  id={3}
-                  statistic={refresh_token_statistic}
-                  setCurrentStatisticValue={this.props.setCurrentStatisticValue}
-                />
+                  <Diagram
+                    header="Basic Auth Diagram"
+                    currentValue={this.props.currentValue}
+                    id={1}
+                    statistic={basic_auth_statistic}
+                    setCurrentStatisticValue={this.props.setCurrentStatisticValue}
+                  />
+                  <Diagram
+                    header="Social Auth Statistic"
+                    currentValue={this.props.currentValue}
+                    id={2}
+                    statistic={social_auth_statistic}
+                    setCurrentStatisticValue={this.props.setCurrentStatisticValue}
+                  />
+                  <Diagram
+                    header="Refresh Token Statistic"
+                    currentValue={this.props.currentValue}
+                    id={3}
+                    statistic={refresh_token_statistic}
+                    setCurrentStatisticValue={this.props.setCurrentStatisticValue}
+                  />
+                </div>
               </div>
+
             </div>
 
           </Paper>

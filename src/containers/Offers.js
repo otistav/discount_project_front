@@ -14,7 +14,7 @@ import {
   changeCreateModalStatus,
   createOffer
 } from "../actions/offers";
-import OfferDialog from '../components/OfferDialog';
+import OfferDialog from './OfferDialog';
 import Offer from '../components/Offer';
 import _ from 'lodash/collection';
 import Snackbar from 'material-ui/Snackbar';
@@ -22,12 +22,6 @@ class Offers extends Component {
   componentDidMount() {
     this.props.getOffers();
   }
-
-
-    // geocodeByAddress(this.state.address)
-    //   .then(results => getLatLng(results[0]))
-    //   .then(latLng => console.log('Success', latLng))
-    //   .catch(error => console.error('Error', error))
 
   render() {
 
@@ -59,6 +53,7 @@ class Offers extends Component {
         /> : null}
         <Paper className="page">
           <Subheader
+            useButton={true}
             openModal={this.props.changeCreateModalStatus}
             subheaderName="Offers"
             label="CREATE OFFER"

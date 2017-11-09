@@ -1,8 +1,22 @@
 .side-bar {
-    display: inline-block;
+    /*display: inline-block;*/
     float: left;
-    width: 10%;
+    width: 192px;
     height: 815px;
-    background-color: RGB(54, 150, 167) !important;
+    /*background-color: RGB(54, 150, 167);*/
 
+}
+
+.menu-item {
+    width: 85%;
+}
+
+@media (max-width: 800px) {
+    .side-bar {
+        width: 80px;
+    }
+    .menu-item {
+        width: 30%;
+        overflow: hidden;
+    }
 }

@@ -8,10 +8,10 @@ const Offer = (props) => {
       <div className="content">
         <div className="left">
           <div className="offer-name">
-            {props.offer.name}
+            {props.offer.name.length ? props.offer.name : <span style={{color: 'red'}}>'no name'</span>}
           </div>
 
-          <Img src={"http://localhost:3000/" + props.offer.image} style={{width: '100px', height: '100px'}}/>
+          <Img src={"http://localhost:3000" + props.offer.image} style={{width: '100px', height: '100px'}}/>
 
           <div className="offer-info disposable">
             {props.offer.disposable === true ? <div>disposable</div> : <div>reusable</div>}

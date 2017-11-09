@@ -5,8 +5,14 @@
     margin-left: 5%;
 }
 
+.statistic-wrapper {
+  padding: 10px;
+  margin: 10px;
+}
+
 .statistic-header {
-    text-align: center;
+  text-align: center;
+  font-size: 30px;
 }
 
 .page {
@@ -17,4 +23,17 @@
     height: 815px;
     min-height: 815px;
     overflow: auto;
+}
+
+.navigation-link {
+    text-decoration: none;
+    border: 0;
+    color: white;
+    margin-right: 10px;
+}
+
+
+
+.page-links {
+
 }

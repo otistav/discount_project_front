@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import AppBar from 'material-ui/AppBar';
 import '../styles/header.css'
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import FontAwesome from 'react-fontawesome';
 import Vk from '../icons/vk-128.svg';
@@ -19,7 +19,7 @@ import {
 
 class Header extends Component {
   render() {
-    console.log(localStorage.getItem('access_token'), 'token at header')
+
     return(
       <AppBar
         className="header"
@@ -33,49 +33,45 @@ class Header extends Component {
                 <IconButton>
                   <ActionHome />
                 </IconButton>
-                <FlatButton label= "logout"
-                            className="header-button"
-                            labelStyle={{color: 'black'}}
-                            onClick={
-                              () => {
-                                localStorage.removeItem('refresh_token');
-                                localStorage.removeItem('access_token');
-                                this.props.history.replace('/sign-in')
-                              }
-                            }
-                            style={{
-                              marginRight: '10px',
-                              bottom: '5px'
-                            }}
-                />
+                  <RaisedButton
+                    label= "logout"
+                    className="header-button"
+                    primary={true}
+                    labelStyle={{color: 'black'}}
+                    onClick={
+                      () => {
+                        localStorage.removeItem('refresh_token');
+                        localStorage.removeItem('access_token');
+                        this.props.history.replace('/sign-in')
+                      }
+                    }
+                  />
+
               </div>
               :
               <div>
-                <FlatButton label="sign in"
-                            className="header-button"
-                            containerElement={<Link to="/sign-in"/>}
-                            labelStyle={{color: 'black'}}
-                            style={{
-                              marginRight: '10px'
-                            }}
+                <RaisedButton
+                  label="sign in"
+                  className="header-button"
+                  containerElement={<Link to="/sign-in"/>}
+                  labelStyle={{color: 'black'}}
+                  primary={true}
                 />
 
-                <FlatButton label="sign up"
-                            className="header-button"
-                            containerElement={<Link to="/sign-up"/>}
-                            labelStyle={{color: 'black'}}
-                            style={{
-                              marginRight: '10px'
-                            }}
+                <RaisedButton
+                  label="sign up"
+                  className="header-button"
+                  containerElement={<Link to="/sign-up"/>}
+                  labelStyle={{color: 'black'}}
+                  primary={true}
                 />
 
-                <FlatButton
+                <RaisedButton
                   label={<Icon size="2x" style={{color: 'black'}} name="vk" />}
                   onClick={this.props.signInVK}
+                  primary={true}
                   className="header-button"
-                  style={{
-                    bottom: '10px'
-                  }}
+
                 />
               </div>
 
