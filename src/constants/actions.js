@@ -62,6 +62,12 @@ export const DISCOUNT_TYPE_CHANGED = 'DISCOUNT_TYPE_CHANGED';
 
 export const FILE = 'FILE';
 
+//reports
+
+export const GAMES_FETCH_START = 'GAMES_FETCH_START';
+export const GAMES_FETCH_SUCCESS = 'GAMES_FETCH_SUCCESS';
+export const GAMES_FETCH_FAILURE = 'GAMES_FETCH_FAILURE';
+
 //users
 
 export const FETCH_USERS_START = 'FETCH_USERS_START';

@@ -5,6 +5,11 @@ import '../styles/side-bar.css';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import Menu from 'material-ui/Menu';
+import {List, ListItem} from 'material-ui/List';
+import ContentInbox from 'material-ui/svg-icons/content/inbox';
+import ActionGrade from 'material-ui/svg-icons/action/grade';
+import ContentSend from 'material-ui/svg-icons/content/send';
+import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 import MenuItem from 'material-ui/MenuItem';
 import Icon from 'react-fontawesome'
 import {
@@ -16,6 +21,25 @@ import {
 } from 'react-router-dom';
 
 class SideBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+    };
+  }
+
+
+  handleToggle = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+  };
+
+  handleNestedListToggle = (item) => {
+    this.setState({
+      open: item.state.open,
+    });
+  };
 
   render() {
     console.log(localStorage.getItem('access_token'), 'this is access token');
@@ -49,6 +73,29 @@ class SideBar extends Component {
                 leftIcon={<Icon name="user-o"/>}
                 style={{ backgroundColor: this.props.location.pathname.indexOf('/users') > -1 ? 'rgb(94, 194, 214)' : 'transparent'}}
               />
+            <List>
+              <ListItem
+                className="menu-item"
+                primaryText="Reports"
+                leftIcon={<Icon name="book" />}
+                initiallyOpen={true}
+                primaryTogglesNestedList={true}
+                nestedItems={[
+                  <ListItem
+                    className="menu-item"
+                    key={1}
+                    primaryText="Most active users"
+                    leftIcon={<Icon name="users" />}
+                  />,
+                  <ListItem
+                    className="menu-item"
+                    key={2}
+                    primaryText="Games"
+                    leftIcon={<Icon name="gamepad"/>}
+                  />
+                ]}
+              />
+            </List>
             </Menu>
           </Paper>
           :

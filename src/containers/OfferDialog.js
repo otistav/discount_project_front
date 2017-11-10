@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import '../styles/page.css';
 import '../styles/offers.css';

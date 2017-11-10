@@ -100,68 +100,71 @@ class Users extends Component {
             label="CREATE USER"
             useButton={false}
           />
+          <div className="page-content">
+            <TextField
+              value={this.state.value}
+              style={{width: '60%'}}
+              floatingLabelText="search users"
+              onChange={
+                (e) => {
+                  let newValue = e.target.value;
+                  this.setState({value: e.target.value, prevTime: new Date()});
 
-          <TextField
-            value={this.state.value}
-            style={{width: '60%'}}
-            floatingLabelText="search users"
-            onChange={
-              (e) => {
-                let newValue = e.target.value;
-                this.setState({value: e.target.value, prevTime: new Date()});
+                  setTimeout(() => {
+                    let oldValue = this.state.value;
+                    let newTime = new Date();
+                    if (oldValue === newValue && newTime - this.state.prevTime > 500) {
+                      this.setState({tempValue: oldValue}, () => {
+                        console.log('edited')
+                      });
+                      if (this.state.tempValue !== '')
+                        this.props.getQueryUsers(oldValue);
+                    }
+                  }, 500);
+                  console.log(this.state.value);
 
-                setTimeout(() => {
-                  let oldValue = this.state.value;
-                  let newTime = new Date();
-                  if (oldValue === newValue && newTime - this.state.prevTime > 500) {
-                    this.setState({tempValue: oldValue}, () => {
-                      console.log('edited')
-                    });
-                    if (this.state.tempValue !== '')
-                      this.props.getQueryUsers(oldValue);
-                  }
-                }, 500);
-                console.log(this.state.value);
-
-              }}
-          />
-          <IconButton
-            onClick={() => {this.setState({value: ''})}}
-          >
-            <FontIcon className="material-icons">backspace</FontIcon>
-          </IconButton>
-
-
-
-          <div className="offers">
-            {users.map((user) => (
-              <User
-                setCurrentUser={this.props.setCurrentUser}
-                changeModalStatus={this.props.changeModalStatus}
-                roles={get(this.props, 'roles', [])}
-                user={{
-                  offers: user.offers,
-                  username: user.username,
-                  role_id: user.role_id,
-                  first_name: user.first_name,
-                  second_name: user.second_name,
-                  role: user.role,
-                  id: user.id
                 }}
-              />
-            ))}
-          </div>
+            />
+            <IconButton
+              onClick={() => {this.setState({value: ''})}}
+            >
+              <FontIcon className="material-icons">backspace</FontIcon>
+            </IconButton>
 
-          <UserDialog
-            label="SAVE"
-            editUser={this.props.editUser}
-            setCurrentRole={this.props.setCurrentRole}
-            isModalOpen={this.props.isModalOpen}
-            changeModalStatus={this.props.changeModalStatus}
-          />
 
-          <div className="page-links">
-            {this.renderPagesLinks()}
+
+            <div className="offers">
+              {users.map((user) => (
+                <User
+                  setCurrentUser={this.props.setCurrentUser}
+                  changeModalStatus={this.props.changeModalStatus}
+                  roles={get(this.props, 'roles', [])}
+                  user={{
+                    offers: user.offers,
+                    username: user.username,
+                    role_id: user.role_id,
+                    first_name: user.first_name,
+                    second_name: user.second_name,
+                    role: user.role,
+                    id: user.id
+                  }}
+                />
+              ))}
+            </div>
+
+            <UserDialog
+              label="SAVE"
+              editUser={this.props.editUser}
+              setCurrentRole={this.props.setCurrentRole}
+              isModalOpen={this.props.isModalOpen}
+              changeModalStatus={this.props.changeModalStatus}
+            />
+
+            <div className="page-links">
+              {this.renderPagesLinks()}
+            </div>
+
+
           </div>
 
 
