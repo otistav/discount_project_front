@@ -12,7 +12,7 @@ export const getOffers = (history) =>  {
       {
         method: "GET",
         url: 'http://localhost:3001/offers',
-        // headers: {access_token: localStorage.getItem('access_token')},
+        headers: {access_token: localStorage.getItem('access_token')},
       },
       history
     )

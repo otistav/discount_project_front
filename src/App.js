@@ -38,21 +38,13 @@ class App extends Component {
     }
     else {
       if (this.props.location.pathname !== '/sign-in' && this.props.location.pathname !== '/sign-up') {
-        console.log('hey, wrong location', this.props.location.pathname === '/sign-in');
         this.props.history.replace('/sign-in');
-        window.location.reload();
       }
     }
   }
 
 
   render() {
-    console.log(this.context, '<---------- this is context')
-    console.log(customHistory, '<====================== this is custom history');
-    console.log(localStorage)
-    // console.log(this.props.location.pathname);
-    console.log(this.props.history);
-    console.log(this.props.history.location)
 
     return (
         <MuiThemeProvider  muiTheme={getMuiTheme(darkBaseTheme)}>

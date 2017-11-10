@@ -18,6 +18,11 @@ export default function refreshToken(request, history) {
               request.headers =  {access_token: localStorage.getItem('access_token')}
               return axios(request);
           }).catch(err => {
+            if (err.response.status === 401) {
+              localStorage.removeItem('access_token');
+              localStorage.removeItem('refresh_token');
+              customHistory.replace('/sign-in');
+            }
             console.log('this is err in refresh_token middlware', err);
           })
       }
