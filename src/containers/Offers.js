@@ -3,6 +3,7 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux';
 import '../styles/page.css';
 import '../styles/offers.css';
+import customHistory from '../history';
 import Paper from 'material-ui/Paper';
 import Subheader from '../components/DictSubheader'
 import {
@@ -20,7 +21,7 @@ import _ from 'lodash/collection';
 import Snackbar from 'material-ui/Snackbar';
 class Offers extends Component {
   componentDidMount() {
-    this.props.getOffers();
+    this.props.getOffers(this.props.history);
   }
 
   render() {
@@ -45,12 +46,7 @@ class Offers extends Component {
 
     return(
       <div>
-        {this.props.error ? <Snackbar
-          open={this.props.error}
-          message={this.props.error.response.data.message ? this.props.error.response.message : this.props.error.message}
-          bodyStyle={{background: 'red', opacity: '0.5'}}
-          autoHideDuration={4000}
-        /> : null}
+
         <Paper className="page">
           <Subheader
             useButton={true}
@@ -165,8 +161,8 @@ export default withRouter(connect(
     saveFile: (file) => {
       dispatch(saveFile(file))
     },
-    getOffers: () => {
-      return dispatch(getOffers())
+    getOffers: (history) => {
+      return dispatch(getOffers(history))
     },
     setCurrentOffer: (offer) => {
       dispatch(setCurrentOffer(offer))

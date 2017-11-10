@@ -9,15 +9,24 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 
+import history from './history';
+console.log(history, 'this is history')
+const unlisten = history.listen((location, action) => {
+  // location is an object like window.location
+  console.log(action, location.pathname, location.state)
+})
+
+unlisten();
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 
 
-ReactDOM.render(<Provider store={store}>
-  <Router>
-    <App />
-  </Router>
-</Provider>, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <Router history={history}>
+      <App />
+    </Router>
+  </Provider>, document.getElementById('root'));
 registerServiceWorker();

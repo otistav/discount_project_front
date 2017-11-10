@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as constants from '../constants/actions';
-import refreshToken from '../middlewares/refreshTokenMiddleware.js'
+import refreshToken from '../middlewares/refreshTokenMiddleware.js';
 import * as configConstants from '../constants/config';
 export function getUser(access_token, id) {
   return (dispatch) => {
@@ -52,7 +52,13 @@ export function getAllUsers(offset) {
 
 export const getQueryUsers = (fullName) => {
   return dispatch => {
-    return axios.get('http://localhost:3001/users?q=' + fullName)
+    return refreshToken(
+      {
+        method: 'GET',
+        url: 'http://localhost:3001/users?q=' + fullName,
+        headers: {access_token: localStorage.getItem('access_token')}
+      }
+    )
       .then(users => {
         dispatch({
           type: constants.FETCH_USERS_SUCCESS,
@@ -70,7 +76,13 @@ export const getRoles = () => {
     dispatch({
       type: constants.FETCH_USERS_START
     });
-    return axios.get('http://localhost:3001/roles')
+    return refreshToken(
+      {
+        method: 'GET',
+        url: 'http://localhost:3001/roles',
+        headers: {access_token: localStorage.getItem('access_token')}
+      }
+    )
       .then(roles => {
         dispatch({
           type: constants.FETCH_ROLES_SUCCESS,
@@ -109,12 +121,17 @@ export function changeModalStatus() {
 }
 
 export const editUser = (user, offset) => {
-  console.log(user);
   return dispatch => {
-    return axios.patch('http://localhost:3001/users/' + user.id, {
-      role_id: user.role_id
-
-    })
+    return refreshToken(
+      {
+        method: 'PATCH',
+        url: 'http://localhost:3001/users/' + user.id,
+        data: {
+          role_id: user.role_id
+        },
+        headers: {access_token: localStorage.getItem('access_token')}
+      }
+    )
       .then(user => {
         console.log(user);
         return dispatch(getAllUsers(offset));

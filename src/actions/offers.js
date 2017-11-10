@@ -2,12 +2,20 @@ import axios from 'axios';
 import * as constants from '../constants/actions';
 import {EDIT_OFFERS_SUCCESS} from "../constants/actions";
 import {FETCH_OFFERS_SUCCESS} from "../constants/actions";
-export const getOffers = () =>  {
+import refreshToken from '../middlewares/refreshTokenMiddleware.js';
+export const getOffers = (history) =>  {
   return (dispatch) => {
     dispatch({
       type: constants.FETCH_OFFERS_START
     });
-    return axios.get('http://localhost:3001/offers')
+    return refreshToken(
+      {
+        method: "GET",
+        url: 'http://localhost:3001/offers',
+        // headers: {access_token: localStorage.getItem('access_token')},
+      },
+      history
+    )
       .then(res => {
         dispatch({
           type: constants.FETCH_OFFERS_SUCCESS,
@@ -301,7 +309,6 @@ export const editOffer = (
         })
     }
     else {
-      console.log('this is cost', cost);
       return axios.patch('http://localhost:3001/offers/' + id, {
         options: {
           name: name,

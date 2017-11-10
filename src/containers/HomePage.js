@@ -22,8 +22,8 @@ class HomePage extends Component {
 
   componentDidMount() {
     this.props.getStatistic();
-    if (!(localStorage.getItem('access_token') && localStorage.getItem('refresh_token')))
-      this.props.history.replace('/sign-in');
+    // if (!(localStorage.getItem('access_token') && localStorage.getItem('refresh_token')))
+    //   this.props.history.replace('/sign-in');
   }
 
   render() {

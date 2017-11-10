@@ -9,6 +9,7 @@ import axios from 'axios';
 import {signInWithVK} from './actions/vkLogIn';
 import Login from './containers/Login';
 import HomePage from './containers/HomePage';
+import customHistory from './history';
 import SideBar from './containers/SideBar';
 import Offers from './containers/Offers';
 import Users from './containers/Users';
@@ -29,12 +30,31 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 class App extends Component {
+  componentWillMount() {
+    console.log(this.props.location)
+    if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token')) {
+      if (this.props.location.pathname === '/sign-in' || this.props.location.pathname === '/sign-up')
+        this.props.history.replace('/');
+    }
+    else {
+      if (this.props.location.pathname !== '/sign-in' && this.props.location.pathname !== '/sign-up') {
+        console.log('hey, wrong location', this.props.location.pathname === '/sign-in');
+        this.props.history.replace('/sign-in');
+        window.location.reload();
+      }
+    }
+  }
 
 
   render() {
-    console.log(this.props.location);
+    console.log(this.context, '<---------- this is context')
+    console.log(customHistory, '<====================== this is custom history');
+    console.log(localStorage)
+    // console.log(this.props.location.pathname);
+    console.log(this.props.history);
+    console.log(this.props.history.location)
+
     return (
-      <Router>
         <MuiThemeProvider  muiTheme={getMuiTheme(darkBaseTheme)}>
           <div className='app'>
             <Header signInVK={this.props.vkLogin}
@@ -46,11 +66,8 @@ class App extends Component {
             <Route path="/sign-up" component={Register} />
             <Route path="/sign-in" component={Login} />
             <Route path="/users/:id" component={Users}/>
-
           </div>
         </MuiThemeProvider>
-      </Router>
-
     );
 
   }
