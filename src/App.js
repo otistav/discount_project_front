@@ -13,6 +13,7 @@ import customHistory from './history';
 import SideBar from './containers/SideBar';
 import Offers from './containers/Offers';
 import Users from './containers/Users';
+import GameReportsPage from './containers/GameReportsPage';
 import FlatButton from 'material-ui/FlatButton';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -53,6 +54,7 @@ class App extends Component {
                     history={this.props.history}
             />
             <SideBar/>
+            <Route path="/reports/games" component={GameReportsPage}/>
             <Route path="/offers" component={Offers}/>
             <Route path="/" exact component={HomePage}/>
             <Route path="/sign-up" component={Register} />

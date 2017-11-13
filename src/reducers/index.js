@@ -5,6 +5,7 @@ import statistic from './statistic';
 import offers from './offers';
 import offerForm from './offerForm';
 import users from './users';
+import reports from './reports';
 
 export default combineReducers({
   registerForm,
@@ -12,5 +13,6 @@ export default combineReducers({
   statistic,
   offers,
   offerForm,
-  users
+  users,
+  reports
 })

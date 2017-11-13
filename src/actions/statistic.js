@@ -4,7 +4,7 @@ import * as constants from '../constants/actions';
 
 export function getStatistic() {
   return (dispatch) => {
-    return axios.get('http://localhost:3001/statistic')
+    return axios.get('http://localhost:3001/statistic?groupBy=date')
       .then(statistic => {
         console.log(statistic, "STATISTIC");
         dispatch(saveStatistic(statistic.data));
