@@ -84,14 +84,15 @@ class SideBar extends Component {
                   <ListItem
                     className="menu-item"
                     key={1}
-                    primaryText="Most active users"
+                    containerElement={<Link to={'/reports/customers'} />}
+                    primaryText="Top customers"
                     leftIcon={<Icon name="users" />}
                   />,
                   <ListItem
                     className="menu-item"
                     key={2}
                     containerElement={<Link to={'/reports/games'} />}
-                    primaryText="Top Users by Game"
+                    primaryText="Top Gamers"
                     leftIcon={<Icon name="gamepad"/>}
                   />
                 ]}

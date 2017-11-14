@@ -14,6 +14,7 @@ import SideBar from './containers/SideBar';
 import Offers from './containers/Offers';
 import Users from './containers/Users';
 import GameReportsPage from './containers/GameReportsPage';
+import TopCustomersPage from './containers/TopCustomersPage';
 import FlatButton from 'material-ui/FlatButton';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -55,6 +56,7 @@ class App extends Component {
             />
             <SideBar/>
             <Route path="/reports/games" component={GameReportsPage}/>
+            <Route path="/reports/customers" component={TopCustomersPage}/>
             <Route path="/offers" component={Offers}/>
             <Route path="/" exact component={HomePage}/>
             <Route path="/sign-up" component={Register} />
